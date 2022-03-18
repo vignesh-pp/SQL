@@ -1,0 +1,181 @@
+--SQL
+
+--DROP or DELETE TABLE
+drop table dummy;
+
+--CREATE TABLE
+create table dummy(d_id integer, name varchar(20), salary integer);
+
+--INSERT 
+insert into dummy values 
+(1, 'aaaa', 30000),
+(2, 'bbbb', 20000),
+(3, 'cccc', 40000),
+(4, 'dddd', 35000);
+
+--SELECT ALL
+select * from dummy;
+
+--DML
+--SELECT--INSERT--UPDATE--DELETE
+--UPDATE
+update dummy
+set salary = 25000
+where name = 'bbbb';
+
+select * from dummy;
+
+--DELETE 
+delete dummy
+where d_id = 4;
+
+select * from dummy;
+
+--DCL -->GRANT,REVOKE
+--TCL -->COMMIT,ROLLBACK
+
+--DDL
+--CREATE--ALTER--TRUNCATE--DROP
+--ALTER  -->add or remove column
+alter table dummy
+add column city varchar(10);
+
+select * from dummy;
+
+--ALTER -->SET COLUMN NAME
+alter table dummy
+add column city set datatype char(2);
+
+
+--ALTER -->delete column
+alter table dummy
+drop column city;
+
+select * from dummy;
+
+--CREATE OTHER TABLE
+
+drop table PETRESCUE;
+-- Create the PETRESCUE table 
+create table PETRESCUE (
+	ID INTEGER NOT NULL,
+	ANIMAL VARCHAR(20),
+	QUANTITY INTEGER,
+	COST DECIMAL(6,2),
+	RESCUEDATE DATE,
+	PRIMARY KEY (ID)
+	);
+-- Insert sample data into PETRESCUE table
+insert into PETRESCUE values 
+	(1,'Cat',9,450.09,'2018-05-29'),
+	(2,'Dog',3,666.66,'2018-06-01'),
+	(3,'Dog',1,100.00,'2018-06-04'),
+	(4,'Parrot',2,50.00,'2018-06-04'),
+	(5,'Dog',1,75.75,'2018-06-10'),
+	(6,'Hamster',6,60.60,'2018-06-11'),
+	(7,'Cat',1,44.44,'2018-06-11'),
+	(8,'Goldfish',24,48.48,'2018-06-14'),
+	(9,'Dog',2,222.22,'2018-06-15');
+
+--ORDER BY,DESC
+select * from PETRESCUE
+order by ANIMAL;
+
+
+--DISTINCT 
+select distinct ANIMAL from PETRESCUE;
+
+--GROUP BY
+select ANIMAL,count(ANIMAL)as Animals_count from PETRESCUE
+group by ANIMAL;
+
+--HAVING 
+select ANIMAL,count(ANIMAL)as Animals_count from PETRESCUE
+group by ANIMAL
+having count(ANIMAL)>2;
+
+--MATHEMATICAL FUNCTIONS 
+--AGGREGATE FUNCTIONS -->SUM(),MIN(),MAX(),AVG()
+
+--SUM
+select sum(cost) from PETRESCUE;
+
+--MIN
+select min(cost) from PETRESCUE;
+
+--MAX
+select max(cost) from PETRESCUE;
+
+--AVG
+select avg(cost) from PETRESCUE;
+
+--ROUND
+select round(avg(cost),4) from PETRESCUE;
+
+--CEIL
+select ceil(avg(cost)) from PETRESCUE;
+
+--FLOOR
+select floor(avg(cost)) from PETRESCUE;
+
+--ABS
+SELECT Abs(-243.5) AS AbsNum;
+
+--SQRT
+select sqrt(0);
+
+--POWER
+select power(3,2);
+
+--GREATEST
+select greatest(4,8,9,10);
+
+--LEAST
+select least(3,6,7,1);
+
+--mod -->modulus
+select mod(54,10);
+
+--STRING FUNCTIONS
+--UCASE
+select ucase('Vicky');
+
+--LCASE
+select lcase('VICKY');
+
+--LENGTH
+select length('vicky');
+
+--CONCAT
+select concat('vicky',' enada vaalka');
+
+--LEFT
+select left('vicky enada vaalka',5);
+
+--RIGHT
+select right('vicky enada vaalka',5);
+
+--REPEAT
+select repeat('vicky ',3);
+
+--REVERSE
+select reverse('vicky');
+
+--REPLACE
+select replace('vicky','y','s');
+
+--SUBSTR
+select substr('vicky',3,3);
+
+--CHARINDEX
+SELECT CHARINDEX('t', 'Customer') AS MatchPosition;
+
+--DATE AND TIME IN-BUILT FUNCTONS
+--DAY
+select day(RESCUEDATE) from PETRESCUE;
+
+--MONTH
+select month(RESCUEDATE) from PETRESCUE;
+
+--special registration
+select (current_date - RESCUEDATE) from PETRESCUE;
