@@ -170,6 +170,23 @@ select substr('vicky',3,3);
 --CHARINDEX
 SELECT CHARINDEX('t', 'Customer') AS MatchPosition;
 
+--LIKE -->start - 'a%'  -->ending - '%a'
+--second letter 
+select name from dummy where name like '_a%';
+
+--RANGES -->and
+select name from dummy where salary >=30000 and salary <=45000;
+
+--between
+select name from dummy where salary between 30000 and 40000;
+
+--SET OF VALUE 
+--OR
+select ANIMAL from PETRESCUE where ANIMAL = 'Cat' or ANIMAL = 'Dog';
+
+--IN
+select * from PETRESCUE where ID in(1, 2);
+
 --DATE AND TIME IN-BUILT FUNCTONS
 --DAY
 select day(RESCUEDATE) from PETRESCUE;
