@@ -196,3 +196,102 @@ select month(RESCUEDATE) from PETRESCUE;
 
 --special registration
 select (current_date - RESCUEDATE) from PETRESCUE;
+
+--SUBQUERIES -->a query inside another query->most using of aggregate functions
+select * from Employees
+where salary < (select avg(salary) from Employees);
+
+select * from Employees
+where salary = (select max(salary) from Employees);
+
+--JOINS
+select * from Employeesn;
+select * from Departmentsn;
+
+--INNER JOIN
+select e.emp_id,e.f_name,e.salary from Employeesn e
+inner join Departmentsn d 
+on e.DEP_ID = d.DEP_ID_DEP;
+
+--LEFT JOIN
+select e.emp_id,e.f_name,e.salary from Employeesn e
+left join Departmentsn d 
+on e.DEP_ID = d.DEP_ID_DEP;
+
+--RIGHT JOIN
+select e.emp_id,e.f_name,e.salary from Employeesn e
+right join Departmentsn d 
+on e.DEP_ID = d.DEP_ID_DEP;
+
+
+--CASE STATEMENT
+select f_name,salary,
+case
+	when salary <= 50000 then 'low'
+	when salary >50000 and salary <= 70000 then 'mid'
+	when salary > 70000 then 'high'
+end	as sal_range
+from Employees
+order by salary;
+
+--USER DEFINED FUNCTIONS
+create or replace function 
+countf_name()
+returns integer as total_name
+declare
+	total_name integer;
+begin
+select count(f_name) into total_name from Employees;
+return total_name
+end;
+total_name langauage plpgsql;
+
+select countf_name();	
+	
+
+--STORED PROCEDURE
+--delimiter,create,begin,end,d;->call
+DELIMITER $$
+
+CREATE PROCEDURE ename()
+BEGIN
+  select fname from Employees;
+END $$
+
+DELIMITER ;
+call ename();
+
+--SP USING IN
+DELIMITER $$
+
+CREATE PROCEDURE salarys(IN var int)
+BEGIN
+  select f_name,salary from Employees order by salary desc limit var;
+END $$
+
+DELIMITER ;
+call salarys(3);
+
+--SP update
+DELIMITER $$
+
+CREATE PROCEDURE update_sal(IN var_name varchar(20),new_sal float)
+BEGIN
+	update employees
+	set salary = new_sal
+	where f_name = var_name;
+END $$
+call update_sal("Steve",55000);
+
+select * from Employees;
+
+--SP OUT
+DELIMITER $$
+
+CREATE PROCEDURE counts(OUT total int)
+BEGIN
+	select count(name) into total from Employes where sex = 'F';
+END $$
+DELIMITER ;
+call counts(@F_emp);
+select @F_emp as Female_emps;
